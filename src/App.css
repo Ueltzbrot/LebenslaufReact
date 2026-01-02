@@ -1,0 +1,248 @@
+/* 1. Use a more-intuitive box-sizing model */
+*, *::before, *::after {
+  box-sizing: border-box;
+}
+
+/* 2. Remove default margin */
+*:not(dialog) {
+  margin: 0;
+}
+
+/* 3. Enable keyword animations */
+@media (prefers-reduced-motion: no-preference) {
+  html {
+    interpolate-size: allow-keywords;
+  }
+}
+
+body {
+  /* 4. Add accessible line-height */
+  line-height: 1.5;
+  /* 5. Improve text rendering */
+  -webkit-font-smoothing: antialiased;
+}
+
+/* 6. Improve media defaults */
+img, picture, video, canvas, svg {
+  display: block;
+  max-width: 100%;
+}
+
+/* 7. Inherit fonts for form controls */
+input, button, textarea, select {
+  font: inherit;
+}
+
+/* 8. Avoid text overflows */
+p, h1, h2, h3, h4, h5, h6 {
+  overflow-wrap: break-word;
+}
+
+/* 9. Improve line wrapping */
+p {
+  text-wrap: pretty;
+}
+h1, h2, h3, h4, h5, h6 {
+  text-wrap: balance;
+}
+
+/*
+  10. Create a root stacking context
+*/
+#root, #__next {
+  isolation: isolate;
+}
+/* Dark Theme Variablen */
+:root {
+  --primary-color: #38bdf8;
+  --bg-color: #0f172a;
+  --card-bg: #1e293b;
+  --preview-bg: #ffffff;
+  --text-main: #f1f5f9;
+  --text-muted: #94a3b8;
+  --danger-color: #fb7185;
+  --border-color: #334155;
+  --shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.3);
+}
+
+body {
+  background-color: var(--bg-color);
+  color: var(--text-main);
+  font-family: 'Inter', -apple-system, sans-serif;
+  margin: 0;
+  padding: 0;
+  /* Verhindert, dass die gesamte Seite scrollt */
+  height: 100vh;
+  overflow: hidden;
+}
+
+.container {
+  display: grid;
+  grid-template-columns: 1fr 4fr; 
+  gap: 4rem;
+  margin: 0;
+  padding: 2rem;
+  padding-right: 0rem;
+  align-items: start;
+  /* Begrenzt den Container auf die Fensterhöhe */
+  height: 100vh;
+  box-sizing: border-box;
+}
+
+/* LINKER BEREICH: Eingabe */
+.input {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+  /* Eigenständiges Scrollen */
+  overflow-y: auto;
+  height: 100%;
+  padding-right: 1rem;
+  box-sizing: border-box;
+}
+
+/* Scrollbar-Styling für die linke Seite (optional für Dark Mode Optik) */
+.input::-webkit-scrollbar {
+  width: 6px;
+}
+.input::-webkit-scrollbar-thumb {
+  background: var(--border-color);
+  border-radius: 10px;
+}
+
+.card {
+  background: var(--card-bg);
+  padding: 2rem;
+  border-radius: 16px;
+  box-shadow: var(--shadow);
+  border: 1px solid var(--border-color);
+}
+
+form {
+  display: flex;
+  flex-direction: column;
+  gap: 1.2rem;
+}
+
+label {
+  font-weight: 500;
+  font-size: 0.85rem;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+input {
+  background-color: #0f172a;
+  border: 1px solid var(--border-color);
+  color: white;
+  padding: 0.8rem;
+  border-radius: 8px;
+  font-size: 1rem;
+}
+
+input:focus {
+  outline: none;
+  border-color: var(--primary-color);
+  box-shadow: 0 0 0 2px rgba(56, 189, 248, 0.2);
+}
+
+/* RECHTER BEREICH: Vorschau */
+.input + div {
+  background: white;
+  color: #1e293b;
+  padding: 2rem;
+  border-radius: 8px;
+  box-shadow: 0 20px 50px rgba(0,0,0,0.3);
+  /* Eigenständiges Scrollen für die rechte Seite */
+  height: 100%;
+  overflow-y: auto;
+  box-sizing: border-box;
+}
+
+/* Styling innerhalb der Vorschau */
+h2 {
+  color: #0f172a;
+  border-bottom: 3px solid #38bdf8;
+  padding-bottom: 0.3rem;
+  margin-top: 2.5rem;
+  font-size: 1.5rem;
+}
+
+.educationEntry, .practicalEntry {
+  border-left: 4px solid #e2e8f0;
+  padding-left: 1.5rem;
+  margin-bottom: 2rem;
+  position: relative;
+}
+
+.educationEntry p, .practicalEntry p {
+  margin: 0.5rem 0;
+}
+
+.educationEntry strong, .practicalEntry strong {
+  color: #475569;
+}
+
+/* Buttons */
+button {
+  cursor: pointer;
+  padding: 0.8rem 1.2rem;
+  border-radius: 8px;
+  border: none;
+  font-weight: 600;
+  transition: all 0.2s;
+}
+
+button[type="submit"] {
+  background: var(--primary-color);
+  color: #0f172a;
+}
+
+button[type="submit"]:hover {
+  filter: brightness(1.1);
+  transform: translateY(-1px);
+}
+
+/* Edit & Delete Buttons */
+.educationEntryEdit {
+  background: #f1f5f9;
+  color: #2563eb;
+  margin-right: 0.5rem;
+}
+
+.educationEntryDelete, .practicalEntryDelete {
+  background: #fff1f2;
+  color: #e11d48;
+}
+
+/* Verstecken der Buttons beim Drucken */
+@media print {
+  .input, .educationEntryEdit, .educationEntryDelete, .practicalEntryDelete {
+    display: none;
+  }
+  .container {
+    display: block;
+    height: auto;
+    overflow: visible;
+  }
+  .input + div {
+    box-shadow: none;
+    padding: 0;
+    height: auto;
+    overflow: visible;
+  }
+}
+
+/* Responsive */
+@media (max-width: 1200px) {
+  .container {
+    grid-template-columns: 1fr;
+    height: auto;
+    overflow: visible;
+  }
+  .input, .input + div {
+    height: auto;
+    overflow: visible;
+  }
+}
